@@ -1,0 +1,17 @@
+python
+pytest
+pre-commit
+rich
+ssh-crypt
+tree
+pydantic
+google-cloud-sdk
+google-cloud-bigquery
+sqlparse
+mistune
+alphalens
+pandas-datareader
+jupyter
+yfinance
+pandas-datareader
+jupyter
