@@ -1,0 +1,34 @@
+Runbook
+#######
+
+
+Conda from: https://github.com/conda-forge/miniforge#mambaforge.
+
+## sys setting (only once)
+
+$> curl -LO https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-arm64.sh
+
+$> sh Mambaforge-MacOSX-arm64.sh -b -p ~/envs/conda
+
+$> [ -f ~/envs/conda/condarc ] && mv ~/envs/conda/condarc ~/envs/conda/condarc.off || echo "good, no condarc found"
+
+$> echo "
+show_channel_urls: True
+channels:
+  - conda-forge
+envs_dirs:
+  - ~/envs
+pkgs_dirs:
+    - ~/envs/pkgs
+" > ~/envs/conda/condarc
+
+$> ~/envs/conda/bin/conda init
+
+$> mamba create -n sxope --file tests/requirements.txt
+
+## this project
+
+$> conda activate sxope
+$> jupyter notebook .
+
+Open the notebook in alphalens/examples/tear_sheet_walk_through.ipynb
