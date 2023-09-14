@@ -243,6 +243,8 @@ def factor_returns(factor_data,
     weights = \
         factor_weights(factor_data, demeaned, group_adjust, equal_weight)
 
+    if weights.index.names == ["date", "date", "asset"]:
+        weights = weights.droplevel(0).copy()
     weighted_returns = \
         factor_data[utils.get_forward_returns_columns(factor_data.columns)] \
         .multiply(weights, axis=0)
@@ -710,7 +712,7 @@ def common_start_returns(factor,
             equities_slice |= set(demean_equities)
 
         series = returns.loc[returns.index[starting_index:ending_index],
-                             equities_slice]
+                             list(equities_slice)]
         series.index = range(starting_index - day_zero_index,
                              ending_index - day_zero_index)
 

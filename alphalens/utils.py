@@ -316,7 +316,7 @@ def compute_forward_returns(factor,
             period_len = diff_custom_calendar_timedeltas(start, end, freq)
             days_diffs.append(period_len.components.days)
 
-        delta_days = period_len.components.days - mode(days_diffs).mode[0]
+        delta_days = period_len.components.days - mode(days_diffs)[0]
         period_len -= pd.Timedelta(days=delta_days)
         label = timedelta_to_string(period_len)
 
@@ -637,6 +637,8 @@ def get_clean_factor(factor,
         no_raise,
         zero_aware
     )
+    if quantile_data.index.names == ["date", "date", "asset"]:
+        quantile_data = quantile_data.droplevel(0).copy()
 
     merged_data['factor_quantile'] = quantile_data
 
